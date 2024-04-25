@@ -49,14 +49,12 @@ class Connection extends Thread {
             ObjectInputStream ois = new ObjectInputStream(is);
 
             PlayData data = (PlayData) ois.readObject();
-            game.submitPlayer(data);
+            game.submitData(data);
 
             cs.close();
             is.close();
             ois.close();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -78,7 +76,7 @@ class Game {
         }
     }
 
-    synchronized void submitPlayer(PlayData data) {
+    synchronized void submitData(PlayData data) {
         Collections.sort(data.numbers);
         Collections.sort(winningNumbers);
 
