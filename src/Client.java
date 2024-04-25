@@ -9,12 +9,13 @@ class PlayModel extends Frame implements Serializable {
     boolean submitted = false;
 
     Choice[] numberChoices = new Choice[Config.LOTO_CHOICES];
-    Label nameLabel;
     TextField nameField;
+    Label participantsCounter;
+
     Button button;
 
     PlayModel() {
-        setLayout(new GridLayout(4, 1));
+        setLayout(new GridLayout(5, 1));
 
         // Heading
         Panel headingPanel = new Panel();
@@ -23,11 +24,20 @@ class PlayModel extends Frame implements Serializable {
         headingPanel.add(headingLabel);
         add(headingPanel);
 
+        // Participants
+        Panel participantsPanel = new Panel();
+        participantsCounter = new Label("Participanti: ------");
+        participantsCounter.setFont(new Font("Arial", Font.BOLD, 18));
+        participantsCounter.setForeground(new Color(11, 161, 11));
+        participantsPanel.add(participantsCounter);
+        add(participantsPanel);
+
         // Name
         Panel namePanel = new Panel();
-        nameLabel = new Label("️💁‍ Nume jucator: ");
+        Label nameLabel = new Label("️💁‍ Nume jucator: ");
         namePanel.add(nameLabel);
         nameField = new TextField(25);
+        nameField.requestFocus();
         namePanel.add(nameField);
         add(namePanel);
 
@@ -71,6 +81,7 @@ class PlayData implements Serializable {
     List<Integer> numbers = new ArrayList<>();
 
     String name;
+
     PlayData(PlayModel play) {
         for (int i = 0; i < Config.LOTO_CHOICES; i++) {
             this.numbers.add(Integer.parseInt(play.numberChoices[i].getSelectedItem()));
@@ -81,17 +92,33 @@ class PlayData implements Serializable {
 }
 
 class Client {
+    private static volatile boolean running = true;
+
     public static void main(String[] sss) throws Exception {
         PlayModel play = new PlayModel();
 
         play.setSize(Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
         play.setVisible(true);
 
+        Socket cs = new Socket(Config.HOST, Config.PORT);
+
+        new Thread(() -> {
+            try {
+                ObjectInputStream ois = new ObjectInputStream(cs.getInputStream());
+
+                while (running) {
+                    int participants = (int) ois.readObject();
+                    play.participantsCounter.setText("Participanti: " + participants);
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                // Do nothing, connection closed
+            }
+        }).start();
+
         while (!play.submitted) {
             Thread.sleep(10);
         }
 
-        Socket cs = new Socket(Config.HOST, Config.PORT);
         OutputStream os = cs.getOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(os);
 
@@ -102,9 +129,13 @@ class Client {
         System.out.println("\tNume:\t" + sPlay.name);
         System.out.println("\tNumere:\t" + sPlay.numbers);
 
+        running = false;
+
         play.dispose();
         os.close();
         oos.close();
         cs.close();
+
+        System.exit(0);
     }
 }

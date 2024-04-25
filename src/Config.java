@@ -4,7 +4,7 @@ public class Config {
     public static final String HOST = "localhost";
     public static final int PORT = 5555;
 
-    public static final int ALLOWED_CONNECTIONS = 5;
+    public static final int ALLOWED_CONNECTIONS = 20;
 
     // Loto game
     public static final int LOTO_CHOICES = 6;
