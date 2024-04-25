@@ -9,33 +9,33 @@ Proiect la disciplina "Retele de calculatoare" – an II ID @ FMI
 ----
 
 ### Cerinte 
-O arhiva continand:
+O arhivă conținănd:
 - Programe `.java`
-- Un `.docx` cu descrierea programului.
+- Un `.docx` cu descrierea programului
 
 
-Programul trebuie sa contina cat mai multe dintre subiectele prezentate:
+Programul trebuie să conțină cât mai multe dintre subiectele prezentate:
 - Fluxuri, serializare
 - Fire de executare
 - Clienti - Server
 - Interfete grafice, evenimente
-- Resurse comune pe server accesate "simulatan" de client
-- Metode de rezolvare a problemelor de concurenta: monitoare, semafoare
+- Resurse comune pe server accesate "simultan" de client
+- Metode de rezolvare a problemelor de concurență: monitoare, semafoare
 
 ### Descriere proiect
-#### A fost implementat un joc simplu de **Loto 6/49** 🍀
+#### Am implementat un joc simplu de **Loto 6/49** 🍀
 
-**Serverul** genereaza numerele castigatoare la instantiere si apoi deschide conexiuni pentru **clienti**.
+**Serverul** generează numerele câștigătoare la instanțiere și apoi deschide conexiuni pentru **clienti**.
 
 ![screenshot server](docs/server-cli.png)
 
-**Clientii**, prin interfata grafica, introduc numele si aleg cele 6 numere.
-Aceste numere sunt trimise la server, unde se verifica daca sunt castigatoare.
+**Clientii**, prin interfața grafică, introduc numele și aleg cele 6 numere.
+Aceste numere sunt trimise la server, unde se verifică dacă sunt câștigătoare.
 
 ![screenshot client](docs/client-ui.png)
 
 #### 🥚 Easter egg
-Foloseste numele `java` pentru a castiga la loto.
+Folosețte numele `java` pentru a câștiga la loto.
 
 
 ### Video demo
