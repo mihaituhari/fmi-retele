@@ -39,4 +39,4 @@ Foloseste numele `java` pentru a castiga la loto.
 
 
 ### Video demo
-https://github.com/mihaituhari/fmi-retele/assets/12177811/8e352607-f4f8-4b17-984f-a00bed176647
+https://github.com/mihaituhari/fmi-retele/assets/12177811/bac202c2-8aa1-4276-a4cd-e6fee8edb79b
